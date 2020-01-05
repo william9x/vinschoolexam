@@ -7,19 +7,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="difficult")
-public class Difficult {
+@Table(name="answer")
+public class Answer {
     @Id
-    @Column(name="idDifficult")
+    @Column(name="idAnswer")
     private int id;
-    @Column(name="level")
-    private String level;
-    @OneToMany(mappedBy = "difficult")
-    private List<Question> questions;
+    @Column(name="content")
+    private String content;
+    @OneToMany(mappedBy = "answer")
+    private List<QuestionDescription> questionDescriptions;
 }

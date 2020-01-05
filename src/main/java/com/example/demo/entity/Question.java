@@ -5,17 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Questions")
+@Table(name="questions")
 public class Question {
     @Id
     @Column(name="idQuestions")
@@ -24,11 +22,23 @@ public class Question {
     private String content;
     @Column(name="active")
     private Boolean active;
-    @Column(name="catId")
-    private String catId;
-    @Column(name="diffId")
-    private String diffId;
-    @Column(name="classId")
-    private String classId;
+    @ManyToOne
+    @JoinColumn(name = "cat_id")
+    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "diff_id")
+    private Difficult difficult;
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private Class aClass;
+    @ManyToMany
+    @JoinTable(
+            name = "examDescription",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "exam_id"))
+    private List<Exam> exams;
+    @OneToMany(mappedBy = "questions")
+    List<QuestionDescription> questionDescriptions;
+
 }
 

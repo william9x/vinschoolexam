@@ -5,18 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Exam")
+@Table(name="exam")
 public class Exam {
     @Id
     @Column(name="idExam")
@@ -25,10 +23,17 @@ public class Exam {
     private String examName;
     @Column(name="createdate")
     private Date createDate;
-    @Column(name="userCrateted")
-    private int userCrateted;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name="active")
     private boolean active;
     @Column(name="Time")
     private int time;
+    @OneToMany(mappedBy = "exam")
+    private List<History> histories;
+    @ManyToMany(mappedBy = "examDescription")
+    private List<Question>questions;
+
+
 }
