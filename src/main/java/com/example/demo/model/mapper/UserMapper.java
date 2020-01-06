@@ -20,8 +20,7 @@ public class UserMapper {
         userDto.setEmail(user.getEmail());
         userDto.setPhone(user.getPhone());
         userDto.setActive(user.isActive());
-       // Role role= userRepository.findById(user.getRoleid());
-        //userDto.setRole(role.getName());
+        userDto.setRole(user.getRole().getName());
         }
         return userDto;
     }

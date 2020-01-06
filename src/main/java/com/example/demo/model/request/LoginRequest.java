@@ -15,13 +15,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequest {
-    @NotNull(message = "Username is required")
-    @NotEmpty(message = "Username is required")
+
     @NotBlank(message = "Username is mandatory")
     private String userName;
 
-    @NotNull(message = "Passworld name is required")
-    @NotEmpty(message = "Passworld name is required")
-    @NotBlank(message = "Passworld name is mandatory")
+
+    @NotBlank(message = "Passworld  is mandatory")
     private String passWorld;
 }

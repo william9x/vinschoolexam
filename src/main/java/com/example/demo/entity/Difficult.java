@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name="difficult")
 public class Difficult {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idDifficult")
     private int id;
     @Column(name="level")

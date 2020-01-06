@@ -17,6 +17,7 @@ import java.util.List;
 @Table(name="exam")
 public class Exam {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idExam")
     private int id;
     @Column(name="examname")
@@ -32,7 +33,7 @@ public class Exam {
     private int time;
     @OneToMany(mappedBy = "exam")
     private List<History> histories;
-    @ManyToMany(mappedBy = "examDescription")
+    @ManyToMany(mappedBy = "exams")
     private List<Question>questions;
 
 

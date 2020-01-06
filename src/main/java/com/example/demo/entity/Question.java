@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name="questions")
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idQuestions")
     private int id;
     @Column(name="content")
@@ -37,7 +38,7 @@ public class Question {
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "exam_id"))
     private List<Exam> exams;
-    @OneToMany(mappedBy = "questions")
+    @OneToMany(mappedBy = "question")
     List<QuestionDescription> questionDescriptions;
 
 }

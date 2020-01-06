@@ -16,10 +16,11 @@ import java.util.List;
 @Table(name="class")
 public class Class {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idClass")
     private int id;
     @Column(name="classname")
     private String classname;
-    @OneToMany(mappedBy = "class")
+    @OneToMany(mappedBy = "aClass")
     private List<Question> questionList;
 }

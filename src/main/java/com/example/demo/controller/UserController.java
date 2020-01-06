@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.User;
 import com.example.demo.model.dto.UserDto;
+import com.example.demo.model.request.CreateUserRequest;
 import com.example.demo.model.request.LoginRequest;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
@@ -24,20 +25,37 @@ public class UserController {
     private UserService userService;
 @Autowired
 private UserRepository userRepository;
+
+    //login
     @ApiOperation(value="User login", response = UserDto.class)
     @ApiResponses({
             @ApiResponse(code = 400, message="Bad request"),
             @ApiResponse(code = 500, message="Internal Server Error"),
     })
-    @GetMapping("/{username}/{passworld}")
-    //public ResponseEntity<?> createUser(@RequestBody @Valid LoginRequest loginRequest) {
-    public ResponseEntity<?> createUser(@RequestParam  String username,@RequestParam  String passworld) {
-        UserDto user = userService.checkLogin(username,passworld);
+    @PostMapping("")
+    public ResponseEntity<?> studentLogin(@RequestBody @Valid LoginRequest loginRequest) {
+        UserDto user = userService.checkLogin(loginRequest.getUserName(),loginRequest.getPassWorld());
         if(user!=null){
-            return ResponseEntity.ok(true);
+            return ResponseEntity.ok(user);
         }
-//        List<User>  users= userRepository.findAll();
-        return ResponseEntity.ok(false);
+        return ResponseEntity.ok(null);
+    }
+
+    @ApiOperation(value="Create User", response = UserDto.class)
+    @ApiResponses({
+            @ApiResponse(code = 400, message="Bad request"),
+            @ApiResponse(code = 500, message="Internal Server Error"),
+    })
+    @PostMapping ("/create user")
+    public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
+        UserDto user = userService.createUser(createUserRequest);
+        if(user.getRole()==null){
+           return ResponseEntity.ok(null);
+        }
+        if(user!=null){
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.ok(null);
     }
 
 }
