@@ -80,5 +80,10 @@ public class UserService {
             return false;
         }
         }
+
+        public UserDto getUserDetail(int id){
+            User user= userRepository.findById(id);
+            return userMapper.userToUserDto(user);
+        }
     }
 

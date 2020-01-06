@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin(origins = "/*")
 @RestController
 @RequestMapping("/api/user")
 @Api(value = "User APIs")
@@ -80,5 +80,15 @@ private UserRepository userRepository;
     public ResponseEntity<?> updateUser(@RequestBody @Valid CreateUserRequest createUserRequest, @RequestParam int id) {
         boolean check=userService.updateUser(createUserRequest,id);
         return ResponseEntity.ok(check);
+    }
+    @ApiOperation(value="Get user detail", response = UserDto.class)
+    @ApiResponses({
+            @ApiResponse(code = 400, message="Bad request"),
+            @ApiResponse(code = 500, message="Internal Server Error"),
+    })
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<?> getUserDetail(@RequestParam int id) {
+        UserDto userDto =userService.getUserDetail(id);
+        return ResponseEntity.ok(userDto);
     }
 }
