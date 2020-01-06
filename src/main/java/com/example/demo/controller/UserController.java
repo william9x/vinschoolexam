@@ -46,7 +46,7 @@ private UserRepository userRepository;
             @ApiResponse(code = 400, message="Bad request"),
             @ApiResponse(code = 500, message="Internal Server Error"),
     })
-    @PostMapping ("/create user")
+    @PostMapping ("/create")
     public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         UserDto user = userService.createUser(createUserRequest);
         if(user.getRole()==null){
@@ -57,5 +57,28 @@ private UserRepository userRepository;
         }
         return ResponseEntity.ok(null);
     }
+    @ApiOperation(value="Get all user", response = UserDto.class)
+    @ApiResponses({
+            @ApiResponse(code = 400, message="Bad request"),
+            @ApiResponse(code = 500, message="Internal Server Error"),
+    })
+    @GetMapping ("/getAll")
+    public ResponseEntity<?> getAllUser() {
+        List<UserDto> user = userService.getAll();
+        if(user==null){
+            return ResponseEntity.ok(null);
+        }
 
+        return ResponseEntity.ok(user);
+    }
+    @ApiOperation(value="Update user", response = UserDto.class)
+    @ApiResponses({
+            @ApiResponse(code = 400, message="Bad request"),
+            @ApiResponse(code = 500, message="Internal Server Error"),
+    })
+    @PutMapping ("/update/{id}")
+    public ResponseEntity<?> updateUser(@RequestBody @Valid CreateUserRequest createUserRequest, @RequestParam int id) {
+        boolean check=userService.updateUser(createUserRequest,id);
+        return ResponseEntity.ok(check);
+    }
 }

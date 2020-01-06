@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name="exam")
 public class Exam {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idExam")
     private int id;
     @Column(name="examname")
